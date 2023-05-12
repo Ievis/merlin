@@ -1,9 +1,9 @@
 foo_route:
-  path:     /foo
-  controller: App\Controller\FooController::index
-  methods:    GET
+  path: /tasks/{task}
+  controller: App\Controller\TaskController::show
+  methods: GET
 
 foo_placeholder_route:
-  path:     /foo/{id}
-  controller: App\Controller\FooController::load
-  methods:    GET
+  path: /tasks
+  controller: App\Controller\TaskController::create
+  methods: POST
