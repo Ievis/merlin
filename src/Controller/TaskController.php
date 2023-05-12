@@ -8,7 +8,8 @@ class TaskController
 {
     public function show(Request $request, $task)
     {
-        dump($task);
+        echo $task;
+        return $task;
     }
 
     public function create(Request $request, $id)

@@ -4,7 +4,8 @@
       "App\\": "src"
     },
     "files": [
-      "src/helpers.php"
+      "src/helpers.php",
+      "bin/console/application.php"
     ]
   },
   "require": {
@@ -12,6 +13,7 @@
     "symfony/yaml": "^5.4",
     "symfony/config": "^5.4",
     "symfony/routing": "^5.4",
-    "symfony/dependency-injection": "^5.4"
+    "symfony/dependency-injection": "^5.4",
+    "symfony/console": "^5.4"
   }
 }
