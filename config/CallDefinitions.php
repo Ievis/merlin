@@ -5,11 +5,11 @@ use App\Controller\TaskController;
 return [
     TaskController::class => [
         'create' => [
-            'request' => $request,
-            'id' => $vars['id'] ?? null
+            'request' => $request
         ],
         'show' => [
-            'request' => $request
+            'request' => $request,
+            'task' => $vars['task'] ?? null
         ]
     ]
 ];

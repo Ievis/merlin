@@ -6,9 +6,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TaskController
 {
-    public function show(Request $request)
+    public function show(Request $request, $task)
     {
-        dump('show');
+        dump($task);
     }
 
     public function create(Request $request, $id)

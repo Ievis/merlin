@@ -20,6 +20,7 @@ try {
     $containerBuilder = new ContainerBuilder();
     $containerBuilder->register($container_info['controller'], $container_info['controller']);
 
+    $vars = $container_info['vars'];
     $method_call_definitions = require_once '../config/CallDefinitions.php';
     $definition = new Definition($container_info['controller']);
     $definition->addMethodCall($container_info['action'], $method_call_definitions[$container_info['controller']][$container_info['action']]);
@@ -30,7 +31,8 @@ try {
     $containerBuilder->get((new $container_info['controller'])::class);
 
 } catch (ResourceNotFoundException $e) {
-    echo $e->getMessage();
+    echo'404';
 } catch (MethodNotAllowedException $e) {
-    echo $e->getMessage();
+    echo'404';
+
 }
