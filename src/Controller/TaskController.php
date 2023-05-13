@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
-class TaskController
+class TaskController extends AbstractController
 {
     public function show(Request $request, $task)
     {

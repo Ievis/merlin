@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Service\ControllerMap;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
@@ -25,10 +26,10 @@ class UrlMatchServiceProvider
             '_controller' => $parameters['_controller']
         ]);
 
-        return [
-            'controller' => $controller,
-            'action' => $action,
-            'vars' => $vars
-        ];
+        return new ControllerMap([
+            'controllerName' => $controller,
+            'controllerMethod' => $action,
+            'controllerVars' => $vars
+        ]);
     }
 }

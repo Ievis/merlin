@@ -17,33 +17,27 @@ use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 
-var_dump(new \App\Console\Commands\HelloworldCommand());
-
 try {
-    $application = new Application();
-    $application->register('generate-admin')
-        ->addArgument('username', InputArgument::REQUIRED)
-        ->setCode(function (InputInterface $input, OutputInterface $output): int {
-            // ...
-
-            return Command::SUCCESS;
-        });
     $request = Request::createFromGlobals();
     $routes = RouteServiceProvider::process();
-    $container_info = UrlMatchServiceProvider::process($request, $routes);
+    $controllerInfo = UrlMatchServiceProvider::process($request, $routes);
+
+    $controllerName = $controllerInfo->getControllerName();
+    $controllerMethod = $controllerInfo->getControllerMethod();
+    $controllerVars = $controllerInfo->getControllerVars();
+    $controllerMethodDefinitions = $controllerInfo->getMethodCallDefinitions();
 
     $containerBuilder = new ContainerBuilder();
-    $containerBuilder->register($container_info['controller'], $container_info['controller']);
+    $containerBuilder->register($controllerName, $controllerName);
 
-    $vars = $container_info['vars'];
-    $method_call_definitions = require_once '../config/CallDefinitions.php';
-    $definition = new Definition($container_info['controller']);
-    $definition->addMethodCall($container_info['action'], $method_call_definitions[$container_info['controller']][$container_info['action']]);
+    $definition = new Definition($controllerName);
+    $definition->addMethodCall($controllerMethod, $controllerMethodDefinitions);
     $containerBuilder->addDefinitions([
         TaskController::class => $definition
     ]);
 
-    return $containerBuilder->get((new $container_info['controller'])::class);
+
+    return $containerBuilder->get((new $controllerName)::class);
 
 } catch (ResourceNotFoundException $e) {
     echo '404';

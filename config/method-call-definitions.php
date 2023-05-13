@@ -1,6 +1,9 @@
 <?php
 
 use App\Controller\TaskController;
+use Symfony\Component\HttpFoundation\Request;
+
+$request = $request ?? Request::createFromGlobals();
 
 return [
     TaskController::class => [
@@ -9,7 +12,7 @@ return [
         ],
         'show' => [
             'request' => $request,
-            'task' => $vars['task'] ?? null
+            'task' => $controllerVars['task'] ?? null
         ]
     ]
 ];
