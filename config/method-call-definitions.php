@@ -12,7 +12,7 @@ return [
         ],
         'show' => [
             'request' => $request,
-            'task' => $controllerVars['task'] ?? null
+            'task' => $this->controllerVars['task'] ?? null
         ]
     ]
 ];

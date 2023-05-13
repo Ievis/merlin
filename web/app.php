@@ -31,7 +31,6 @@ try {
         TaskController::class => $definition
     ]);
 
-
     return $containerBuilder->get((new $controllerName)::class);
 
 } catch (ResourceNotFoundException $e) {

@@ -8,8 +8,7 @@ class TaskController extends AbstractController
 {
     public function show(Request $request, $task)
     {
-        echo $task;
-        return $task;
+        dump($task);
     }
 
     public function create(Request $request, $id)
