@@ -1,9 +1,9 @@
-foo_route:
+show_task_route:
   path: /tasks/{task}
   controller: App\Controller\TaskController::show
   methods: GET
 
-foo_placeholder_route:
+create_task_route:
   path: /tasks
   controller: App\Controller\TaskController::create
   methods: POST
