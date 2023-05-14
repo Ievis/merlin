@@ -26,13 +26,34 @@ services:
 
   db:
     image: mysql:latest
+    networks:
+      sail:
+
     restart: always
     volumes:
       - ./tmp/db/:/var/lib/mysql
     environment:
-      MYSQL_DATABASE: merlin
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: merlin
     ports:
-      - "8080:3306"
+      - "3306:3306"
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     container_name: merlin_db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    networks:
+      sail:
+
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    container_name: merlin_phpmyadmin
+
+networks:
+  sail:
+    driver: bridge
