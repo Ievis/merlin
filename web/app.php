@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Exception\MethodNotAllowedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
+$pdo = new PDO("mysql:host=db;dbname=merlin", 'root', 'root');
+
+$statement = $pdo->prepare("insert into tasks (name) values (:name)");
+$statement->execute(['name' => '123']);
 
 try {
     $request = Request::createFromGlobals();

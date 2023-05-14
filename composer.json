@@ -4,16 +4,19 @@
       "App\\": "src"
     },
     "files": [
-      "src/helpers.php",
-      "bin/console/application.php"
+      "src/helpers.php"
     ]
   },
   "require": {
+    "doctrine/orm": "^2.11.0",
+    "doctrine/dbal": "^3.2",
     "symfony/http-foundation": "^5.4",
     "symfony/yaml": "^5.4",
     "symfony/config": "^5.4",
     "symfony/routing": "^5.4",
     "symfony/dependency-injection": "^5.4",
-    "symfony/console": "^5.4"
+    "symfony/console": "^5.4",
+    "symfony/cache": "^5.4",
+    "ext-pdo": "*"
   }
 }
