@@ -22,6 +22,8 @@
 
 `docker exec -it merlin_app supervisord`
 
+`docker exec -it merlin_app supervisorctl status`
+
 #### 5. Разрешить сохранение файлов в папку resources.
 
 `sudo chmod -R 777 resources`
