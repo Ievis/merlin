@@ -12,6 +12,12 @@
 
 `docker exec -it merlin_app php bin/doctrine orm:schema-tool:create`
 
+#### 3.1. Если не удалось создать схему БД.
+
+`docker-compose up -d --build db`
+
+`docker exec -it merlin_app php bin/doctrine orm:schema-tool:create`
+
 #### 4. Запустить supervisor.
 
 `docker exec -it merlin_app supervisord`
@@ -23,5 +29,5 @@
 #### Готово!
 
 1. `localhost:8000` - nginx/fpm/php
-2. `localhost:8080` - phpMyAdmin
+2. `localhost:8080` - phpMyAdmin `(логин - root, пароль - root)`
 3. `mysql:3306` - MySQL
