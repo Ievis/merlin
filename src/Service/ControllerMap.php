@@ -3,14 +3,27 @@
 namespace App\Service;
 
 use App\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class ControllerMap
 {
+
+    private Request $request;
+
+    /**
+     * @return Request
+     */
+    public function getRequest(): Request
+    {
+        return $this->request;
+    }
+
     public function __construct(array $controllerInfo)
     {
         $this->controllerName = $controllerInfo['controllerName'];
         $this->controllerMethod = $controllerInfo['controllerMethod'];
         $this->controllerVars = $controllerInfo['controllerVars'];
+        $this->request = $controllerInfo['request'];
     }
 
     private string $controllerName;
@@ -49,7 +62,8 @@ class ControllerMap
      */
     public function getMethodCallDefinitions(): array
     {
-        $globalDefinitions = require_once __DIR__ . '/../../config/method-call-definitions.php';
+        $request = $this->getRequest();
+        $globalDefinitions = require_once __DIR__ . '/../../config/definitions.php';
 
         return $globalDefinitions[$this->controllerName][$this->controllerMethod];
     }

@@ -27,7 +27,7 @@ services:
   db:
     image: mysql:latest
     networks:
-      sail:
+      default:
 
     restart: always
     volumes:
@@ -42,9 +42,6 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    networks:
-      sail:
-
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root
@@ -53,7 +50,3 @@ services:
     depends_on:
       - db
     container_name: merlin_phpmyadmin
-
-networks:
-  sail:
-    driver: bridge

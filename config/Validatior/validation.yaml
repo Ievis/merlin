@@ -1,0 +1,7 @@
+App\Entity\Task:
+  properties:
+    name:
+      - NotBlank: ~
+    image:
+      - NotBlank: ~
+      - Image:

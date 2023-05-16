@@ -4,9 +4,9 @@
 require __DIR__ . '/../vendor/autoload.php';
 print_r(__DIR__ . PHP_EOL);
 
-use App\Console\Commands\HelloworldCommand;
+use App\Console\Commands\RetryTaskRequestCommand;
 use Symfony\Component\Console\Application;
 
 $app = new Application();
-$app->add(new HelloworldCommand());
+$app->add(new RetryTaskRequestCommand());
 $app->run();

@@ -19,13 +19,13 @@ try {
     $controllerName = $controllerInfo->getControllerName();
     $controllerMethod = $controllerInfo->getControllerMethod();
     $controllerVars = $controllerInfo->getControllerVars();
-    $controllerMethodDefinitions = $controllerInfo->getMethodCallDefinitions();
+    $controllerDefinitions = $controllerInfo->getMethodCallDefinitions();
 
     $containerBuilder = new ContainerBuilder();
     $containerBuilder->register($controllerName, $controllerName);
 
     $definition = new Definition($controllerName);
-    $definition->addMethodCall($controllerMethod, $controllerMethodDefinitions);
+    $definition->addMethodCall($controllerMethod, $controllerDefinitions);
     $containerBuilder->addDefinitions([
         TaskController::class => $definition
     ]);
@@ -33,8 +33,11 @@ try {
     return $containerBuilder->get((new $controllerName)::class);
 
 } catch (ResourceNotFoundException $e) {
-    echo '404';
+    abort(404);
 } catch (MethodNotAllowedException $e) {
-    echo '404';
-
+    echo json_encode([
+        'status' => 'not_found',
+        'message' => 'bad http-verb',
+        'result' => null
+    ]);
 }

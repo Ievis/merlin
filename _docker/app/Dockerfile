@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.1-fpm-buster
 
 RUN apt-get update && apt-get install -y \
       apt-utils \
@@ -16,9 +16,11 @@ RUN apt-get update && apt-get install -y \
       pecl install xdebug && \
       docker-php-ext-enable xdebug
 
-COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
+RUN apt-get update && apt-get install -y supervisor
 
-# Install composer
+COPY ./_docker/app/php.ini /usr/local/etc/php/conf.d/php.ini
+COPY ./_docker/supervisor/conf.d/retry-worker.conf /etc/supervisor/conf.d/retry-worker.conf
+
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN curl -sS https://getcomposer.org/installer | php -- \
     --filename=composer \

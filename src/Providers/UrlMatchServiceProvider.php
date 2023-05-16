@@ -25,11 +25,13 @@ class UrlMatchServiceProvider
             '_route' => $parameters['_route'],
             '_controller' => $parameters['_controller']
         ]);
+        $request->request->add($vars);
 
         return new ControllerMap([
             'controllerName' => $controller,
             'controllerMethod' => $action,
-            'controllerVars' => $vars
+            'controllerVars' => $vars,
+            'request' => $request
         ]);
     }
 }
