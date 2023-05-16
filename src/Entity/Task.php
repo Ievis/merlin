@@ -22,15 +22,24 @@ class Task extends Entity
     #[ORM\Column(type: 'string', nullable: true)]
     private string|null $retry_id;
     #[ORM\Column(type: 'integer', nullable: true)]
-    private string|null $retries;
+    private int|null $retries;
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getRetries(): ?string
+    public function getRetries(): ?int
     {
         return $this->retries;
     }
+
+    /**
+     * @param int|null $retries
+     */
+    public function setRetries(?int $retries): void
+    {
+        $this->retries = $retries;
+    }
+
 
     public function validated(Task $task, ValidatorInterface $validator)
     {

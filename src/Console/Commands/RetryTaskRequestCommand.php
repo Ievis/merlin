@@ -40,6 +40,14 @@ class RetryTaskRequestCommand extends Command
                     ]
                 ])->toArray();
 
+                $retries = $item->getRetries() ?? 1;
+                if ($retries >= 20) {
+                    $em->remove($item);
+                    $em->flush();
+                    die();
+                }
+                $item->setRetries(++$retries);
+
                 if ($response['status'] === 'success') {
                     $item->setResult($response['result']);
                     $item->setRetryId(null);
