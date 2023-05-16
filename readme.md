@@ -12,7 +12,7 @@
 
 `docker exec -it merlin_app php bin/doctrine orm:schema-tool:create`
 
-#### 3.1. Если не удалось создать схему БД.
+#### 3.1. Если не удалось создать схему БД (нет папки `./tmp/db`).
 
 `docker-compose up -d --build db`
 

@@ -27,7 +27,7 @@ try {
     $definition = new Definition($controllerName);
     $definition->addMethodCall($controllerMethod, $controllerDefinitions);
     $containerBuilder->addDefinitions([
-        TaskController::class => $definition
+        $controllerName => $definition
     ]);
 
     return $containerBuilder->get((new $controllerName)::class);
