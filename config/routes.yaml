@@ -1,9 +1,9 @@
 show_task_route:
-  path: /tasks/{task}
+  path: /
   controller: App\Controller\TaskController::show
   methods: GET
 
 create_task_route:
-  path: /tasks
+  path: /
   controller: App\Controller\TaskController::create
   methods: POST

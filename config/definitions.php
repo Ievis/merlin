@@ -14,7 +14,10 @@ return [
         ],
         'show' => [
             'request' => $request,
-            'task' => $em->find(Task::class, empty($this->controllerVars['task']) ? 0 : $this->controllerVars['task']) ?? null
+            'task' => $em->find(Task::class,
+                    empty($this->controllerVars['task'])
+                        ? $request->get('task_id') ?? 0
+                        : $this->controllerVars['task']) ?? null
         ]
     ]
 ];
