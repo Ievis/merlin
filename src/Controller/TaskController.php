@@ -5,10 +5,13 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Exception\FileExsists;
 use App\Resource\TaskResource;
+use App\Service\ClientRequest;
+use App\Service\FileUpload;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Component\Mime\Part\File;
 use Symfony\Component\Mime\Part\Multipart\FormDataPart;
 
 class TaskController extends AbstractController
@@ -23,34 +26,24 @@ class TaskController extends AbstractController
 
     public function create(Request $request)
     {
-        $uploadedFile = $request->files->get('image');
-        $destination = '/var/www/resources/files';
-
-        $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-        $newFilename = $originalFilename . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-
-        FileExsists::check($originalFilename);
-        $destination = $uploadedFile->move(
-            $destination,
-            $newFilename
-        );
-
         $task = new Task([
             'name' => $request->request->get('name'),
-            'image' => $destination->getPathname()
+            'image' => $request->files->get('image')
         ]);
         $task->validated($task, $this->validator);
 
-        $client = HttpClient::create();
+        $uploadedFile = $request->files->get('image');
+        $fileUploadService = new FileUpload($uploadedFile);
+        $destination = $fileUploadService->upload();
+        $task->setImage($destination);
+
         $formData = new FormDataPart([
             'name' => $task->getName(),
-            'photo' => DataPart::fromPath($destination)
+            'photo' => DataPart::fromPath($task->getImage())
         ]);
 
-        $response = $client->request('POST', 'http://merlinface.com:12345/api/', [
-            'headers' => $formData->getPreparedHeaders()->toArray(),
-            'body' => $formData->bodyToIterable()
-        ])->toArray();
+        $clientService = new ClientRequest('http://merlinface.com:12345/api/');
+        $response = $clientService->makeDataPartRequest('POST', $formData);
 
         if ($response['status'] === 'success') $task->setResult($response['result']);
 
