@@ -28,18 +28,18 @@ class TaskController extends AbstractController
     {
         $task = new Task([
             'name' => $request->request->get('name'),
-            'image' => $request->files->get('image')
+            'photo' => $request->files->get('photo')
         ]);
         $task->validated($task, $this->validator);
 
-        $uploadedFile = $request->files->get('image');
+        $uploadedFile = $request->files->get('photo');
         $fileUploadService = new FileUpload($uploadedFile);
         $destination = $fileUploadService->upload();
-        $task->setImage($destination);
+        $task->setPhoto($destination);
 
         $formData = new FormDataPart([
             'name' => $task->getName(),
-            'photo' => DataPart::fromPath($task->getImage())
+            'photo' => DataPart::fromPath($task->getPhoto())
         ]);
 
         $clientService = new ClientRequest('http://merlinface.com:12345/api/');

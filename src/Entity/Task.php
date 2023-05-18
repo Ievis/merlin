@@ -16,7 +16,7 @@ class Task extends Entity
     #[ORM\Column(type: 'string')]
     private string $name;
     #[ORM\Column(type: 'string')]
-    private string|null $image;
+    private string|null $photo;
     #[ORM\Column(type: 'string', nullable: true)]
     private string|null $result;
     #[ORM\Column(type: 'string', nullable: true)]
@@ -49,17 +49,17 @@ class Task extends Entity
     /**
      * @return string|null
      */
-    public function getImage(): ?string
+    public function getPhoto(): ?string
     {
-        return $this->image;
+        return $this->photo;
     }
 
     /**
-     * @param string|null $image
+     * @param string|null $photo
      */
-    public function setImage(?string $image): void
+    public function setPhoto(?string $photo): void
     {
-        $this->image = $image;
+        $this->photo = $photo;
     }
 
     /**
@@ -97,7 +97,7 @@ class Task extends Entity
     public function __construct(array $attributes)
     {
         $this->name = (string)$attributes['name'];
-        $this->image = (string)$attributes['image'];
+        $this->photo = (string)$attributes['photo'];
     }
 
     /**
